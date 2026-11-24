@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Scenario add-on: ammonia synthesis cost of distributed green N fertilizer in the USA = 100 USD/t NH3
+     (base value in gcamdata is 52 USD/t NH3).
+     0.0304 1975$/kg N = 100 / 4000 (1975$/kg to current USD/t) * 17/14 (NH3 to N).
+     Read this file AFTER en_Fert.xml in the configuration file. -->
+<scenario>
+    <world>
+        <region name="USA">
+            <supplysector name="N fertilizer">
+                <subsector name="distributed">
+                    <stub-technology name="distributed">
+                        <period year="2025">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2030">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2035">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2040">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2045">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2050">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2055">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2060">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2065">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2070">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2075">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2080">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2085">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2090">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2095">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                        <period year="2100">
+                            <minicam-non-energy-input name="ammonia synthesis">
+                                <input-cost>0.0304</input-cost>
+                            </minicam-non-energy-input>
+                        </period>
+                    </stub-technology>
+                </subsector>
+            </supplysector>
+        </region>
+    </world>
+</scenario>
