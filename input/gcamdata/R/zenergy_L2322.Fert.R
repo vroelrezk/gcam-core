@@ -402,6 +402,15 @@ module_energy_L2322.Fert <- function(command, ...) {
       select(-supplysector, -subsector, -stub.technology) %>%
       left_join_error_no_match(filter(L2322.StubTech_Fert, stub.technology == "distributed"), by = "region")
 
+
+    # Ammonia synthesis (Haber-Bosch + air separation) cost of distributed production, which the hydrogen costs above do not include
+    # 52 USD/t NH3, calculated from Mingolla & Rosa (2026); converted with 4000 (1975$/kg to current USD/t) and 17/14 (NH3 to N)
+    DIST_SYNTHESIS_COST_USD_TNH3 <- 52
+    L2322.StubTechCost_NtoAg_dist <- L2322.StubTechCost_NtoAg_dist %>%
+      distinct(region, supplysector, subsector, stub.technology, year) %>%
+      mutate(minicam.non.energy.input = "ammonia synthesis",
+             input.cost = round(DIST_SYNTHESIS_COST_USD_TNH3 / 4000 * 17/14, digits = energy.DIGITS_COST)) %>%
+      bind_rows(L2322.StubTechCost_NtoAg_dist)
     # ===================================================
     # Produce outputs
 
