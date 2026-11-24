@@ -37,6 +37,7 @@ module_energy_L2322.Fert <- function(command, ...) {
              "L1322.Fert_NEcost_75USDkgNH3_F",
              "L1322.Fert_GrossTrade_Mt_R_Y",
              "L225.StubTechCost_h2_hybrid_ref",
+             "L225.StubTechCost_h2_USA_ref", #new input
              "L225.StubTechCoef_h2_hybrid_ref"))
   } else if(command == driver.DECLARE_OUTPUTS) {
     return(c("L2322.Supplysector_Fert",
@@ -82,6 +83,7 @@ module_energy_L2322.Fert <- function(command, ...) {
     L1322.Fert_NEcost_75USDkgNH3_F <- get_data(all_data, "L1322.Fert_NEcost_75USDkgNH3_F")
     L1322.Fert_GrossTrade_Mt_R_Y <- get_data(all_data, "L1322.Fert_GrossTrade_Mt_R_Y", strip_attributes = TRUE)
     L225.StubTechCost_h2_hybrid_ref <- get_data(all_data, "L225.StubTechCost_h2_hybrid_ref", strip_attributes = TRUE)
+    L225.StubTechCost_h2_USA_ref <- get_data(all_data, "L225.StubTechCost_h2_USA_ref", strip_attributes = TRUE) #load data
     L225.StubTechCoef_h2_hybrid_ref <- get_data(all_data, "L225.StubTechCoef_h2_hybrid_ref", strip_attributes = TRUE)
 
     # ===================================================
@@ -397,7 +399,14 @@ module_energy_L2322.Fert <- function(command, ...) {
     L2322.StubTechProd_NtoAg <- bind_rows(L2322.StubTechProd_NtoAg_central, L2322.StubTechProd_NtoAg_dist)
 
     # Costs of distributed green N fertilizer production
+    # In the USA, hydrogen costs are taken from Nebraska (GCAM-USA), to represent production sited near fertilizer demand
+    L2322.H2Cost_dist_USA <- L225.StubTechCost_h2_USA_ref %>%
+      filter(region == "NE", subsector == "hybrid") %>%
+      mutate(region = gcam.USA_REGION)
+
     L2322.StubTechCost_NtoAg_dist <- L225.StubTechCost_h2_hybrid_ref %>%
+      filter(region != gcam.USA_REGION) %>%
+      bind_rows(L2322.H2Cost_dist_USA) %>%
       mutate(input.cost = round(input.cost * CONV_GJ_KGH2 * 3/17 * 17/14, digits = energy.DIGITS_COST)) %>%
       select(-supplysector, -subsector, -stub.technology) %>%
       left_join_error_no_match(filter(L2322.StubTech_Fert, stub.technology == "distributed"), by = "region")
@@ -595,7 +604,7 @@ module_energy_L2322.Fert <- function(command, ...) {
       add_units("1975$/kgNH3") %>%
       add_comments("Estimated from green hydrogen production costs") %>%
       same_precursors_as(L2322.StubTechProd_NtoAg) %>%
-      add_precursors("L225.StubTechCost_h2_hybrid_ref") ->
+      add_precursors("L225.StubTechCost_h2_hybrid_ref", "L225.StubTechCost_h2_USA_ref") ->
       L2322.StubTechCost_NtoAg_dist
 
     return_data(L2322.Supplysector_Fert, L2322.SectorUseTrialMarket_tra,
